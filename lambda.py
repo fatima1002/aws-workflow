@@ -78,7 +78,7 @@ def lambda_handler(event, context):
     inferences = event['body']['inferences']
 
     # Check if any values in our inferences are above THRESHOLD
-    if (inferences[0] > THRESHOLD) or  (inferences[1] > THRESHOLD):
+    if (max(inferences) >= THRESHOLD):
         meets_threshold = True
     else:
         meets_threshold = False

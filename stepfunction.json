@@ -1,8 +1,8 @@
 {
   "Comment": "A description of my state machine",
-  "StartAt": "Lambda Invoke",
+  "StartAt": "Serialize",
   "States": {
-    "Lambda Invoke": {
+    "Serialize": {
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "OutputPath": "$.Payload",
@@ -22,9 +22,9 @@
           "BackoffRate": 2
         }
       ],
-      "Next": "Lambda Invoke (1)"
+      "Next": "Predict"
     },
-    "Lambda Invoke (1)": {
+    "Predict": {
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "OutputPath": "$.Payload",
@@ -44,9 +44,9 @@
           "BackoffRate": 2
         }
       ],
-      "Next": "Lambda Invoke (2)"
+      "Next": "Filter"
     },
-    "Lambda Invoke (2)": {
+    "Filter": {
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "OutputPath": "$.Payload",
@@ -54,18 +54,6 @@
         "Payload.$": "$",
         "FunctionName": "arn:aws:lambda:us-east-1:892293250354:function:filterInference:$LATEST"
       },
-      "Retry": [
-        {
-          "ErrorEquals": [
-            "Lambda.ServiceException",
-            "Lambda.AWSLambdaException",
-            "Lambda.SdkClientException"
-          ],
-          "IntervalSeconds": 2,
-          "MaxAttempts": 6,
-          "BackoffRate": 2
-        }
-      ],
       "Catch": [
         {
           "ErrorEquals": [

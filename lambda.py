@@ -43,7 +43,9 @@ import base64
 import boto3
 
 # Fill this in with the name of your deployed model
-ENDPOINT = "image-classification-2021-12-15-20-12-17-120"
+ENDPOINT = "image-classification-2021-12-17-09-55-58-492"
+
+#"image-classification-2021-12-15-20-12-17-120"
 def lambda_handler(event, context):
    # Decode the image data
     body = event['body']
@@ -67,7 +69,7 @@ def lambda_handler(event, context):
 
 #THRESHOLD
 import json
-THRESHOLD = .51
+THRESHOLD = .8
 
 def lambda_handler(event, context):
 
